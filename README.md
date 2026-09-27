@@ -16,14 +16,16 @@ npm run build && node .output/server/index.mjs
 ### Connect Contentful
 
 1. Create a free space at contentful.com.
-2. Create the content model:
+2. Copy `.env.example` to `.env` and add the Space ID, Delivery token and Preview token (Settings → API keys), a CMA token (Settings → CMA tokens) and a random `NUXT_PREVIEW_SECRET`.
+3. Create the content model and seed demo content:
    ```bash
-   npx contentful-cli login
-   npx contentful-cli space migration --space-id <SPACE_ID> scripts/content-model.cjs
+   npm run cms:migrate -- scripts/content-model.cjs
+   npm run cms:seed     # idempotent: safe to re-run
    ```
-3. In Contentful, create a `page` with slug `home` and add a few Hero, Feature grid and Teaser entries to its blocks.
-4. Copy `.env.example` to `.env` and add the Space ID, Delivery token and Preview token (Settings → API keys).
-5. Drafts: open `/?preview=<NUXT_PREVIEW_SECRET>`.
+   The seed publishes a `home` page and a `blog/hello-world` page, and leaves one **unpublished draft** on the home hero headline.
+4. Drafts: open `/?preview=<NUXT_PREVIEW_SECRET>` to see the draft headline and the preview banner.
+
+> In dev, `/blog/**` is cached by the `swr` route rule in `.nuxt/cache/nitro`. After changing content, delete that folder (or wait an hour) to see it.
 
 ## Architecture
 

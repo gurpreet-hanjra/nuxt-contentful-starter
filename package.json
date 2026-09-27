@@ -8,7 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "cms:seed": "node --env-file=.env scripts/seed.ts",
+    "cms:migrate": "node --env-file=.env scripts/migrate.mjs"
   },
   "dependencies": {
     "contentful": "^11.12.10",
@@ -17,6 +19,9 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@types/node": "^26.6.3",
+    "contentful-management": "^12.18.2",
+    "contentful-migration": "^5.1.0",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.11"
   }
