@@ -10,7 +10,8 @@
     "typecheck": "nuxt typecheck",
     "postinstall": "nuxt prepare",
     "cms:seed": "node --env-file=.env scripts/seed.ts",
-    "cms:migrate": "node --env-file=.env scripts/migrate.mjs"
+    "cms:migrate": "node --env-file=.env scripts/migrate.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "contentful": "^11.12.10",
@@ -19,10 +20,14 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@nuxt/test-utils": "^4.3.2",
     "@types/node": "^26.6.3",
+    "@vue/test-utils": "^2.5.1",
     "contentful-management": "^12.18.2",
     "contentful-migration": "^5.1.0",
+    "happy-dom": "^20.14.5",
     "typescript": "^5.9.3",
+    "vitest": "^5.0.2",
     "vue-tsc": "^3.3.11"
   }
 }

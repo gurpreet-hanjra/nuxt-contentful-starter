@@ -27,10 +27,12 @@ function mapImage(asset: any): ImageAsset | undefined {
 }
 
 // Mapper: Contentful entry -> normalised Block. Unknown types are dropped, not crashed on.
+// So are unresolved links: a published page can still point at an unpublished or deleted
+// entry, and the Delivery API then returns a bare { sys: { type: 'Link' } } with no fields.
 export function mapBlock(entry: Entry<any>): Block | null {
   const f: any = entry.fields
   const id = entry.sys.id
-  switch (entry.sys.contentType.sys.id) {
+  switch (entry.sys.contentType?.sys.id) {
     case 'hero':
       return {
         type: 'hero', id,
@@ -42,7 +44,9 @@ export function mapBlock(entry: Entry<any>): Block | null {
       return {
         type: 'featureGrid', id,
         title: f.title,
-        features: (f.features ?? []).map((x: any) => ({ title: x.fields.title, text: x.fields.text })),
+        features: (f.features ?? [])
+          .filter((x: any) => x.fields)
+          .map((x: any) => ({ title: x.fields.title, text: x.fields.text })),
       }
     case 'teaser':
       return { type: 'teaser', id, title: f.title, text: f.text, href: f.href }
