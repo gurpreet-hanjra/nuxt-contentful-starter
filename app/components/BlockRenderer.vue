@@ -4,6 +4,7 @@ import type { Block } from '#shared/types/content'
 import HeroBlock from './blocks/HeroBlock.vue'
 import FeatureGridBlock from './blocks/FeatureGridBlock.vue'
 import TeaserBlock from './blocks/TeaserBlock.vue'
+import QuoteBlock from './blocks/QuoteBlock.vue'
 
 defineProps<{ blocks: Block[] }>()
 
@@ -13,6 +14,7 @@ const registry: Record<Block['type'], Component> = {
   hero: HeroBlock,
   featureGrid: FeatureGridBlock,
   teaser: TeaserBlock,
+  quote: QuoteBlock,
 }
 </script>
 

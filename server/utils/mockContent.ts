@@ -26,6 +26,13 @@ export const mockPages: Record<string, Page> = {
         ],
       },
       {
+        type: 'quote',
+        id: 'quote-1',
+        quote: 'Editors publish on their schedule, developers ship on theirs. The content model is the contract between them.',
+        author: 'Demo editor',
+        role: 'Content team',
+      },
+      {
         type: 'teaser',
         id: 'teaser-1',
         title: 'Hello world',

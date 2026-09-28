@@ -26,7 +26,15 @@ export interface TeaserBlock {
   href: string
 }
 
-export type Block = HeroBlock | FeatureGridBlock | TeaserBlock
+export interface QuoteBlock {
+  type: 'quote'
+  id: string
+  quote: string
+  author: string
+  role?: string
+}
+
+export type Block = HeroBlock | FeatureGridBlock | TeaserBlock | QuoteBlock
 
 export interface Page {
   slug: string

@@ -39,6 +39,8 @@ export function mapBlock(entry: Entry<any>): Block | null {
       }
     case 'teaser':
       return { type: 'teaser', id, title: f.title, text: f.text, href: f.href }
+    case 'quote':
+      return { type: 'quote', id, quote: f.quote, author: f.author, role: f.role }
     default:
       return null
   }

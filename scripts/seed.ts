@@ -107,6 +107,12 @@ async function main() {
     features: [link('featureEditors'), link('featureFast'), link('featureAgnostic')],
   })
 
+  await upsertEntry('quoteHome', 'quote', {
+    quote: 'Editors publish on their schedule, developers ship on theirs. The content model is the contract between them.',
+    author: 'Demo editor',
+    role: 'Content team',
+  })
+
   await upsertEntry('teaserHelloWorld', 'teaser', {
     title: 'Hello world',
     text: 'The first blog post, served with stale-while-revalidate caching.',
@@ -122,7 +128,7 @@ async function main() {
     title: 'Home',
     slug: 'home',
     seoDescription: 'A headless CMS demo built with Nuxt and Contentful.',
-    blocks: [link('heroHome'), link('featureGridHome'), link('teaserHelloWorld'), link('teaserContentfulDocs')],
+    blocks: [link('heroHome'), link('featureGridHome'), link('quoteHome'), link('teaserHelloWorld'), link('teaserContentfulDocs')],
   })
 
   // --- Blog post -----------------------------------------------------------
