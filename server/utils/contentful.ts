@@ -1,5 +1,5 @@
 import { createClient, type Entry } from 'contentful'
-import type { Block, Page } from '#shared/types/content'
+import type { Block, ImageAsset, Page } from '#shared/types/content'
 
 // One client per mode. Preview uses the Preview API (returns drafts).
 export function getContentfulClient(preview = false) {
@@ -19,6 +19,13 @@ function assetUrl(asset: any): string | undefined {
   return url ? `https:${url}` : undefined
 }
 
+function mapImage(asset: any): ImageAsset | undefined {
+  const url = assetUrl(asset)
+  if (!url) return undefined
+  const size = asset.fields.file.details?.image
+  return { url, width: size?.width, height: size?.height, alt: asset.fields.description ?? '' }
+}
+
 // Mapper: Contentful entry -> normalised Block. Unknown types are dropped, not crashed on.
 export function mapBlock(entry: Entry<any>): Block | null {
   const f: any = entry.fields
@@ -29,7 +36,7 @@ export function mapBlock(entry: Entry<any>): Block | null {
         type: 'hero', id,
         headline: f.headline, subline: f.subline,
         ctaLabel: f.ctaLabel, ctaHref: f.ctaHref,
-        imageUrl: assetUrl(f.image),
+        image: mapImage(f.image),
       }
     case 'featureGrid':
       return {

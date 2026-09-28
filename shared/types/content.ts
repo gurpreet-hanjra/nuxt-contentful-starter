@@ -1,6 +1,14 @@
 // Normalised content types. The UI never sees raw Contentful entries,
 // so we could swap CMS (Storyblok, Sanity...) by changing only the mapper.
 
+export interface ImageAsset {
+  url: string
+  // Intrinsic size: lets the browser reserve space before the image loads (no layout shift).
+  width?: number
+  height?: number
+  alt: string
+}
+
 export interface HeroBlock {
   type: 'hero'
   id: string
@@ -8,7 +16,7 @@ export interface HeroBlock {
   subline?: string
   ctaLabel?: string
   ctaHref?: string
-  imageUrl?: string
+  image?: ImageAsset
 }
 
 export interface FeatureGridBlock {
