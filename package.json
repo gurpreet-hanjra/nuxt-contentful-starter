@@ -11,7 +11,8 @@
     "postinstall": "nuxt prepare",
     "cms:seed": "node --env-file=.env scripts/seed.ts",
     "cms:migrate": "node --env-file=.env scripts/migrate.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "cms:webhook": "node --env-file=.env scripts/webhook.ts"
   },
   "dependencies": {
     "contentful": "^11.12.10",
