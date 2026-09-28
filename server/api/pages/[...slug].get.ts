@@ -6,7 +6,8 @@ export default defineEventHandler(async (event): Promise<Page> => {
   const slug = getRouterParam(event, 'slug') || 'home'
   const { preview } = getQuery(event)
   const config = useRuntimeConfig(event)
-  const isPreview = preview === config.previewSecret
+  // The default secret is public (it's in the repo), so it never unlocks drafts.
+  const isPreview = config.previewSecret !== 'change-me' && preview === config.previewSecret
 
   const client = getContentfulClient(isPreview)
 
@@ -26,7 +27,10 @@ export default defineEventHandler(async (event): Promise<Page> => {
   const entry = res.items[0]
   if (!entry) throw createError({ statusCode: 404, statusMessage: 'Page not found' })
 
-  // Never cache drafts
-  if (isPreview) setHeader(event, 'Cache-Control', 'no-store')
+  // Never cache drafts, and tell the client it really got them (drives the preview banner).
+  if (isPreview) {
+    setHeader(event, 'Cache-Control', 'no-store')
+    setHeader(event, 'X-Preview', '1')
+  }
   return mapPage(entry)
 })
